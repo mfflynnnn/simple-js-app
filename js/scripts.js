@@ -6,10 +6,16 @@ let pokemonList = [
   { name: "Bouffalant", height: 1.6, types: ["normal"], weight: 94.6 },
 ];
 
-//Looping through the array of objects that contain the pokemon data and printing
-//it to the page.
+//Looping through the array of objects that contain the pokemon data and printing it to the page.
+//Using a conditional to notate on the page which pokemon is the largest.
 for (i = 0; i < pokemonList.length; i++) {
-  document.write(
-    `<ul><li>${pokemonList[i].name} (height: ${pokemonList[i].height}m)</li></ul>`
-  );
+  if (pokemonList[i].height > 1) {
+    document.write(
+      `<ul><li>${pokemonList[i].name} (height: ${pokemonList[i].height}m) - Wow, that's big!</li></ul>`
+    );
+  } else {
+    document.write(
+      `<ul><li>${pokemonList[i].name} (height: ${pokemonList[i].height}m)</li></ul>`
+    );
+  }
 }
