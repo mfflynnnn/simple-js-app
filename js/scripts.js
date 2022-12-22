@@ -8,6 +8,8 @@ let pokemonList = [
 
 //Looping through the array of objects that contain the pokemon data and printing
 //it to the page.
-for (i = 1; i < pokemonList.length; i++) {
-  document.write(`${pokemonList[i].name} (height: ${pokemonList[i].height}m).`);
+for (i = 0; i < pokemonList.length; i++) {
+  document.write(
+    `<ul><li>${pokemonList[i].name} (height: ${pokemonList[i].height}m)</li></ul>`
+  );
 }
