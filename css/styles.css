@@ -1,0 +1,23 @@
+body {
+  font-family: "Oswald", sans-serif;
+  font-size: larger;
+}
+
+.container {
+  text-align: center;
+}
+
+.page-header__item {
+  max-width: 25%;
+}
+
+ul li {
+  margin: 10px;
+  list-style-type: none;
+}
+
+@media screen and (max-width: 760px) {
+  body {
+    font-size: 75%;
+  }
+}
