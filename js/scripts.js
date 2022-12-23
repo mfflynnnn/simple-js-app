@@ -1,5 +1,8 @@
 //Primary repository holding pokemon array and functions to display it.
 let pokemonRepository = (function () {
+  //Array of expected keys
+  let expectedKeys = Object.keys(pokemonList[0]);
+
   //Array of pokemon characters.
   let pokemonList = [
     { name: "Squirtle", height: 0.5, types: ["water"], weight: 9 },
@@ -14,6 +17,11 @@ let pokemonRepository = (function () {
     { name: "Bouffalant", height: 1.6, types: ["normal"], weight: 94.6 },
   ];
 
+  //Function that filters data based on passed in criteria.
+  function getByName(criteria) {
+    let result = pokemonList.filter((filterName) => filterName === criteria);
+    return result[0] ? result[0] : {};
+  }
   //Function that returns the whole pokemonList array.
   function getAll() {
     return pokemonList;
@@ -21,12 +29,24 @@ let pokemonRepository = (function () {
 
   //Function that enables adding data to pokemonList array.
   function add(pokemon) {
-    return pokemonList.push(pokemon);
+    if (typeof pokemon === "Object" && verifyKeys(pokemon)) {
+      return pokemonList.push(pokemon);
+    }
+  }
+
+  function verifyKeys(obj) {
+    Object.keys(obj).forEach((key) => {
+      if (expectedKeys.indexOf(key) === -1) {
+        return false;
+      }
+    });
+    return true;
   }
 
   return {
     getAll: getAll,
     add: add,
+    getByName: getByName,
   };
 })();
 
