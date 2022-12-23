@@ -8,15 +8,15 @@ let pokemonList = [
 
 //Looping through the array of objects that contain the pokemon data and printing it to the page.
 //Using a conditional to notate on the page which pokemon is the largest.
-for (i = 0; i < pokemonList.length; i++) {
-  if (pokemonList[i].height > 1) {
+pokemonList.forEach(function (character) {
+  if (character.height > 1) {
     let largeAlert = "- Wow, that's big!";
     document.write(
-      `<ul><li>${pokemonList[i].name} (height: ${pokemonList[i].height}m) ${largeAlert}</li></ul>`
+      `<ul><li>${character.name} (height: ${character.height}m) ${largeAlert}</li></ul>`
     );
   } else {
     document.write(
-      `<ul><li>${pokemonList[i].name} (height: ${pokemonList[i].height}m)</li></ul>`
+      `<ul><li>${character.name} (height: ${character.height}m)</li></ul>`
     );
   }
-}
+});
