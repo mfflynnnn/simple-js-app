@@ -20,8 +20,8 @@ let pokemonRepository = (function () {
   }
 
   //Function that enables adding data to pokemonList array.
-  function add(character) {
-    return pokemonList.push(character);
+  function add(pokemon) {
+    return pokemonList.push(pokemon);
   }
 
   return {
@@ -30,17 +30,20 @@ let pokemonRepository = (function () {
   };
 })();
 
+//Assigning the data from the repository to a new variable accessible outside of the IIFE.
+let newPokemonData = pokemonRepository.getAll();
+
 //Looping through the array of objects that contain the pokemon data and printing it to the page.
 //Using a conditional to notate on the page which pokemon is the largest.
-pokemonList.forEach(function (character) {
-  if (character.height > 1) {
+newPokemonData.forEach(function (pokemon) {
+  if (pokemon.height > 1) {
     let largeAlert = "- Wow, that's big!";
     document.write(
-      `<ul><li>${character.name} (height: ${character.height}m) ${largeAlert}</li></ul>`
+      `<ul><li>${pokemon.name} (height: ${pokemon.height}m) ${largeAlert}</li></ul>`
     );
   } else {
     document.write(
-      `<ul><li>${character.name} (height: ${character.height}m)</li></ul>`
+      `<ul><li>${pokemon.name} (height: ${pokemon.height}m)</li></ul>`
     );
   }
 });
