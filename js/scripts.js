@@ -43,10 +43,26 @@ let pokemonRepository = (function () {
     return true;
   }
 
+  function addListItem(pokemon) {
+    //Adding pokemon buttons to the DOM via the ul in index.html.
+    let pokemonUl = document.querySelector(".pokemon-list");
+    let listItem = document.createElement("li");
+    let button = document.createElement("button");
+    button.innerText = `${pokemon.name}`;
+    button.classList.add("list-button");
+
+    var elem = document.getElementById("list-button");
+    console.log(elem, "This is the button text");
+
+    listItem.appendChild(button);
+    pokemonUl.appendChild(listItem);
+  }
+
   return {
     getAll: getAll,
     add: add,
     getByName: getByName,
+    addListItem: addListItem,
   };
 })();
 
@@ -56,16 +72,5 @@ let newPokemonData = pokemonRepository.getAll();
 //Looping through the array of objects that contain the pokemon data and printing it to the page.
 //Using a conditional to notate on the page which pokemon is the largest.
 newPokemonData.forEach(function (pokemon) {
-  //Adding pokemon buttons to the DOM via the ul in index.html.
-  let pokemonUl = document.querySelector(".pokemon-list");
-  let listItem = document.createElement("li");
-  let button = document.createElement("button");
-  button.innerText = `${pokemon.name}`;
-  button.classList.add("list-button");
-
-  var elem = document.getElementById("list-button");
-  console.log(elem, "This is the button text");
-
-  listItem.appendChild(button);
-  pokemonUl.appendChild(listItem);
+  pokemonRepository.addListItem(pokemon);
 });
