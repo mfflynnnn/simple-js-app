@@ -51,9 +51,6 @@ let pokemonRepository = (function () {
     button.innerText = `${pokemon.name}`;
     button.classList.add("list-button");
 
-    var elem = document.getElementById("list-button");
-    console.log(elem, "This is the button text");
-
     listItem.appendChild(button);
     pokemonUl.appendChild(listItem);
   }
