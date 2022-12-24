@@ -1,8 +1,5 @@
 //Primary repository holding pokemon array and functions to display it.
 let pokemonRepository = (function () {
-  //Array of expected keys
-  let expectedKeys = Object.keys(pokemonList[0]);
-
   //Array of pokemon characters.
   let pokemonList = [
     { name: "Squirtle", height: 0.5, types: ["water"], weight: 9 },
@@ -16,6 +13,9 @@ let pokemonRepository = (function () {
     },
     { name: "Bouffalant", height: 1.6, types: ["normal"], weight: 94.6 },
   ];
+
+  //Array of expected keys
+  let expectedKeys = Object.keys(pokemonList[0]);
 
   //Function that filters data based on passed in criteria.
   function getByName(criteria) {
@@ -56,14 +56,10 @@ let newPokemonData = pokemonRepository.getAll();
 //Looping through the array of objects that contain the pokemon data and printing it to the page.
 //Using a conditional to notate on the page which pokemon is the largest.
 newPokemonData.forEach(function (pokemon) {
-  if (pokemon.height > 1) {
-    let largeAlert = "- Wow, that's big!";
-    document.write(
-      `<ul><li>${pokemon.name} (height: ${pokemon.height}m) ${largeAlert}</li></ul>`
-    );
-  } else {
-    document.write(
-      `<ul><li>${pokemon.name} (height: ${pokemon.height}m)</li></ul>`
-    );
-  }
+  //Adding pokemon buttons to the DOM via the ul in index.html.
+  let pokemonUl = document.querySelector("pokemon-list");
+  let listItem = document.createElement("li");
+  let button = document.createElement("button");
+  button.innertext = `${pokemon.name}`;
+  button.classList.add("pokemon-list-button");
 });
