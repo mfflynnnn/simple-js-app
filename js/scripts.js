@@ -43,8 +43,8 @@ let pokemonRepository = (function () {
     return true;
   }
 
+  //Adding pokemon buttons to the DOM via the ul in index.html.
   function addListItem(pokemon) {
-    //Adding pokemon buttons to the DOM via the ul in index.html.
     let pokemonUl = document.querySelector(".pokemon-list");
     let listItem = document.createElement("li");
     let button = document.createElement("button");
