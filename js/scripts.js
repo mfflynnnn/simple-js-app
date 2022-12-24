@@ -44,6 +44,7 @@ let pokemonRepository = (function () {
   }
 
   //Adding pokemon buttons to the DOM via the ul in index.html.
+  //Creating an eventListener to the click of the buttons.
   function addListItem(pokemon) {
     let pokemonUl = document.querySelector(".pokemon-list");
     let listItem = document.createElement("li");
@@ -53,6 +54,13 @@ let pokemonRepository = (function () {
 
     listItem.appendChild(button);
     pokemonUl.appendChild(listItem);
+
+    button.addEventListener("click", showDetails);
+
+    //Logging data from eventListener.
+    function showDetails() {
+      console.log(pokemon);
+    }
   }
 
   return {
