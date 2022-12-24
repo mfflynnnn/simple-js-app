@@ -11,9 +11,15 @@ body {
   max-width: 25%;
 }
 
-ul li {
+ul,
+li {
   margin: 10px;
   list-style-type: none;
+}
+
+button {
+  padding: 15px;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 760px) {
