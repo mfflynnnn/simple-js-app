@@ -67,7 +67,6 @@ let pokemonRepository = (function () {
 let newPokemonData = pokemonRepository.getAll();
 
 //Looping through the array of objects that contain the pokemon data and printing it to the page.
-//Using a conditional to notate on the page which pokemon is the largest.
 newPokemonData.forEach(function (pokemon) {
   pokemonRepository.addListItem(pokemon);
 });
