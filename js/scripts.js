@@ -57,9 +57,15 @@ let newPokemonData = pokemonRepository.getAll();
 //Using a conditional to notate on the page which pokemon is the largest.
 newPokemonData.forEach(function (pokemon) {
   //Adding pokemon buttons to the DOM via the ul in index.html.
-  let pokemonUl = document.querySelector("pokemon-list");
+  let pokemonUl = document.querySelector(".pokemon-list");
   let listItem = document.createElement("li");
   let button = document.createElement("button");
-  button.innertext = `${pokemon.name}`;
-  button.classList.add("pokemon-list-button");
+  button.innerText = `${pokemon.name}`;
+  button.classList.add("list-button");
+
+  var elem = document.getElementById("list-button");
+  console.log(elem, "This is the button text");
+
+  listItem.appendChild(button);
+  pokemonUl.appendChild(listItem);
 });
