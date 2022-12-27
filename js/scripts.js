@@ -1,27 +1,18 @@
 //Primary repository holding pokemon array and functions to display it.
 let pokemonRepository = (function () {
   //Array of pokemon characters.
-  let pokemonList = [
-    { name: "Squirtle", height: 0.5, types: ["water"], weight: 9 },
-    { name: "Pidgey", height: 0.3, types: ["flying", "normal"], weight: 1.8 },
-    { name: "Pikachu", height: 0.4, types: ["electric"], weight: 6 },
-    {
-      name: "Jigglypuff",
-      height: 0.5,
-      types: ["fairy", "normal"],
-      weight: 5.5,
-    },
-    { name: "Bouffalant", height: 1.6, types: ["normal"], weight: 94.6 },
-  ];
+  let pokemonList = [];
+  let apiUrl = "https://pokeapi.co/api/v2/pokemon/";
 
   //Array of expected keys
-  let expectedKeys = Object.keys(pokemonList[0]);
+  let expectedKeys = ["name", "detailsUrl"];
 
-  //Function that filters data based on passed in criteria.
-  function getByName(criteria) {
-    let result = pokemonList.filter((filterName) => filterName === criteria);
-    return result[0] ? result[0] : {};
-  }
+  // //Function that filters data based on passed in criteria.
+  // function getByName(criteria) {
+  //   let result = pokemonList.filter((filterName) => filterName === criteria);
+  //   return result[0] ? result[0] : {};
+  // }
+
   //Function that returns the whole pokemonList array.
   function getAll() {
     return pokemonList;
@@ -29,7 +20,7 @@ let pokemonRepository = (function () {
 
   //Function that enables adding data to pokemonList array.
   function add(pokemon) {
-    if (typeof pokemon === "Object" && verifyKeys(pokemon)) {
+    if (typeof pokemon === "object" && verifyKeys(pokemon)) {
       return pokemonList.push(pokemon);
     }
   }
@@ -49,32 +40,92 @@ let pokemonRepository = (function () {
     let pokemonUl = document.querySelector(".pokemon-list");
     let listItem = document.createElement("li");
     let button = document.createElement("button");
+
     button.innerText = `${pokemon.name}`;
     button.classList.add("list-button");
-
     listItem.appendChild(button);
     pokemonUl.appendChild(listItem);
-
-    button.addEventListener("click", showDetails);
+    button.addEventListener("click", showDetails(pokemon));
 
     //Logging data from eventListener.
-    function showDetails() {
-      console.log(pokemon);
+    function showDetails(pokemon) {
+      loadDetails(pokemon).then(function () {
+        console.log(pokemon);
+      });
     }
   }
+
+  //Fetches the full list of data from the API.
+  function loadList() {
+    //showLoadingMessage();
+
+    return fetch(apiUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (json) {
+        //hideLoadingMessage();
+        json.results.forEach(function (item) {
+          let pokemon = {
+            name: item.name,
+            detailsUrl: item.url,
+          };
+          add(pokemon);
+        });
+      })
+      .catch(function (e) {
+        //hideLoadingMessage();
+        console.error(e);
+      });
+  }
+
+  //Fetches just the item details from the API. This gets called onClick.
+  function loadDetails(item) {
+    //showLoadingMessage();
+
+    let url = item.detailsUrl;
+
+    return fetch(url)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (details) {
+        //hideLoadingMessage();
+        item.imageUrl = details.sprites.front_default;
+        item.height = details.height;
+        item.types = details.types;
+      })
+      .catch(function (e) {
+        //hideLoadingMessage();
+        console.error(e);
+      });
+  }
+
+  // function showLoadingMessage() {
+  //   let div = document.createElement("div");
+  //   div.append("Loading...");
+  //   return div;
+  // }
+
+  // function hideLoadingMessage(div) {
+  //   div.remove(div);
+  // }
 
   return {
     getAll: getAll,
     add: add,
-    getByName: getByName,
+    //getByName: getByName,
     addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails,
+    // showLoadingMessage: showLoadingMessage,
+    // hideLoadingMessage: hideLoadingMessage,
   };
 })();
 
-//Assigning the data from the repository to a new variable accessible outside of the IIFE.
-let newPokemonData = pokemonRepository.getAll();
-
-//Looping through the array of objects that contain the pokemon data and printing it to the page.
-newPokemonData.forEach(function (pokemon) {
-  pokemonRepository.addListItem(pokemon);
+//Loading the list from the API, then returning the list and its items.AAQW2
+pokemonRepository.loadList().then(function () {
+  pokemonRepository.getAll().forEach(function (pokemon) {
+    pokemonRepository.addListItem(pokemon);
+  });
 });
