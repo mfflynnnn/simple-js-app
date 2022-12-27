@@ -45,14 +45,9 @@ let pokemonRepository = (function () {
     button.classList.add("list-button");
     listItem.appendChild(button);
     pokemonUl.appendChild(listItem);
-    button.addEventListener("click", showDetails(pokemon));
-
-    //Logging data from eventListener.
-    function showDetails(pokemon) {
-      loadDetails(pokemon).then(function () {
-        console.log(pokemon);
-      });
-    }
+    button.addEventListener("click", function (event) {
+      showDetails(pokemon);
+    });
   }
 
   //Fetches the full list of data from the API.
@@ -101,6 +96,13 @@ let pokemonRepository = (function () {
       });
   }
 
+  //Logging data from eventListener.
+  function showDetails(item) {
+    loadDetails(item).then(function () {
+      console.log(item);
+    });
+  }
+
   // function showLoadingMessage() {
   //   let div = document.createElement("div");
   //   div.append("Loading...");
@@ -118,6 +120,7 @@ let pokemonRepository = (function () {
     addListItem: addListItem,
     loadList: loadList,
     loadDetails: loadDetails,
+    showDetails: showDetails,
     // showLoadingMessage: showLoadingMessage,
     // hideLoadingMessage: hideLoadingMessage,
   };
