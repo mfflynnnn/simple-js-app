@@ -52,14 +52,14 @@ let pokemonRepository = (function () {
 
   //Fetches the full list of data from the API.
   function loadList() {
-    //showLoadingMessage();
+    showLoadingMessage();
 
     return fetch(apiUrl)
       .then(function (response) {
         return response.json();
       })
       .then(function (json) {
-        //hideLoadingMessage();
+        hideLoadingMessage();
         json.results.forEach(function (item) {
           let pokemon = {
             name: item.name,
@@ -69,14 +69,14 @@ let pokemonRepository = (function () {
         });
       })
       .catch(function (e) {
-        //hideLoadingMessage();
+        hideLoadingMessage();
         console.error(e);
       });
   }
 
   //Fetches just the item details from the API. This gets called onClick.
   function loadDetails(item) {
-    //showLoadingMessage();
+    showLoadingMessage();
 
     let url = item.detailsUrl;
 
@@ -85,13 +85,13 @@ let pokemonRepository = (function () {
         return response.json();
       })
       .then(function (details) {
-        //hideLoadingMessage();
+        hideLoadingMessage();
         item.imageUrl = details.sprites.front_default;
         item.height = details.height;
         item.types = details.types;
       })
       .catch(function (e) {
-        //hideLoadingMessage();
+        hideLoadingMessage();
         console.error(e);
       });
   }
@@ -103,15 +103,21 @@ let pokemonRepository = (function () {
     });
   }
 
-  // function showLoadingMessage() {
-  //   let div = document.createElement("div");
-  //   div.append("Loading...");
-  //   return div;
-  // }
+  //Shows a "Loading" message while waiting for data from the API.
+  function showLoadingMessage() {
+    let container = document.querySelector(".container");
+    let div = document.createElement("div");
+    div.innerText = "Loading";
+    div.classList.add("loading-message");
+    container.append(div);
+    return div;
+  }
 
-  // function hideLoadingMessage(div) {
-  //   div.remove(div);
-  // }
+  //Removes the "Loading" message once the data from the API has loaded.
+  function hideLoadingMessage() {
+    let element = document.querySelector(".loading-message");
+    element.remove();
+  }
 
   return {
     getAll: getAll,
@@ -121,8 +127,8 @@ let pokemonRepository = (function () {
     loadList: loadList,
     loadDetails: loadDetails,
     showDetails: showDetails,
-    // showLoadingMessage: showLoadingMessage,
-    // hideLoadingMessage: hideLoadingMessage,
+    showLoadingMessage: showLoadingMessage,
+    hideLoadingMessage: hideLoadingMessage,
   };
 })();
 
