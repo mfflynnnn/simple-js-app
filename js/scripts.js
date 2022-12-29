@@ -98,6 +98,67 @@ let pokemonRepository = (function () {
 
   //Logging data from eventListener.
   function showDetails(item) {
+    (function () {
+      function showModal(title, text) {
+        let modalContainer = document.querySelector("#modal-container");
+
+        //Clear all existing modal content
+        modalContainer.innerHTML = "";
+        let modal = document.createElement("div");
+        modal.classList.add("modal");
+
+        //Add new modal content
+        let closeButtonElement = document.createElement("button");
+        closeButtonElement.classList.add("modal-close");
+        closeButtonElement.innerText = "Close";
+
+        let titleElement = document.createElement("h1");
+        titleElement.innerText = title;
+
+        let contentElement = document.createElement("p");
+        contentElement.innerText = text;
+
+        modal.appendChild(closeButtonElement);
+        modal.appendChild(titleElement);
+        modal.appendChild(contentElement);
+        modalContainer.appendChild(modal);
+
+        modalContainer.classList.add("is-visible");
+
+        //Exit modal via different escape/close means.
+        function hideModal() {
+          let modalContainer = document.querySelector("#modal-container");
+          modalContainer.classList.remove("is-visible");
+        }
+
+        //Exit modal on click of "Close".
+        closeButtonElement.addEventListener("click", hideModal);
+
+        //Exit modal on escape key.
+        window.addEventListener("keydown", (e) => {
+          let modalContainer = document.querySelector("#modal-container");
+          if (
+            e.key === "Escape" &&
+            modalContainer.classList.contains("is-visible")
+          ) {
+            hideModal();
+          }
+        });
+
+        //Exit modal on click outside of modal.
+        modalContainer.addEventListener("click", (e) => {
+          let target = e.target;
+          if (target === modalContainer) {
+            hideModal();
+          }
+        });
+      }
+
+      document.querySelector("#show-modal").addEventListener("click", () => {
+        showModal("Modal title", "This is the modal content!");
+      });
+    })();
+
     loadDetails(item).then(function () {
       console.log(item);
     });
@@ -132,7 +193,7 @@ let pokemonRepository = (function () {
   };
 })();
 
-//Loading the list from the API, then returning the list and its items.AAQW2
+//Loading the list from the API, then returning the list and its items.
 pokemonRepository.loadList().then(function () {
   pokemonRepository.getAll().forEach(function (pokemon) {
     pokemonRepository.addListItem(pokemon);
