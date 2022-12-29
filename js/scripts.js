@@ -98,8 +98,8 @@ let pokemonRepository = (function () {
 
   //Logging data from eventListener.
   function showDetails(item) {
-    (function () {
-      function showModal(title, text) {
+    let getModal = (function () {
+      function showModal(title, image, text) {
         let modalContainer = document.querySelector("#modal-container");
 
         //Clear all existing modal content
@@ -115,11 +115,15 @@ let pokemonRepository = (function () {
         let titleElement = document.createElement("h1");
         titleElement.innerText = title;
 
+        let contentImage = document.createElement("img");
+        contentImage.src = image;
+
         let contentElement = document.createElement("p");
         contentElement.innerText = text;
 
         modal.appendChild(closeButtonElement);
         modal.appendChild(titleElement);
+        modal.appendChild(contentImage);
         modal.appendChild(contentElement);
         modalContainer.appendChild(modal);
 
@@ -157,10 +161,20 @@ let pokemonRepository = (function () {
       document.querySelector("#show-modal").addEventListener("click", () => {
         showModal("Modal title", "This is the modal content!");
       });
+
+      return {
+        showModal: showModal,
+      };
     })();
 
     loadDetails(item).then(function () {
-      console.log(item);
+      document.querySelector(".list-button").addEventListener("click", () => {
+        getModal.showModal(
+          item.name,
+          item.imageUrl,
+          `Height: ${item.height} Types: ${item.types[0]}`
+        );
+      });
     });
   }
 
