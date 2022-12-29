@@ -158,10 +158,6 @@ let pokemonRepository = (function () {
         });
       }
 
-      document.querySelector("#show-modal").addEventListener("click", () => {
-        showModal("Modal title", "This is the modal content!");
-      });
-
       return {
         showModal: showModal,
       };
@@ -213,3 +209,9 @@ pokemonRepository.loadList().then(function () {
     pokemonRepository.addListItem(pokemon);
   });
 });
+
+// ----TASKS---
+// 1). Make sure all required data appears in some capacity in modal.
+// 2). Fix bug where "types" is showing typeOf instead of actual value.
+// DONE - 3). Delete "modal" button.
+// 4). Fix bug where modal only opens on first object item.
