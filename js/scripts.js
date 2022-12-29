@@ -88,7 +88,6 @@ let pokemonRepository = (function () {
         hideLoadingMessage();
         item.imageUrl = details.sprites.front_default;
         item.height = details.height;
-        item.types = details.types;
       })
       .catch(function (e) {
         hideLoadingMessage();
@@ -116,6 +115,7 @@ let pokemonRepository = (function () {
         titleElement.innerText = title;
 
         let contentImage = document.createElement("img");
+        contentImage.classList.add("modal-image");
         contentImage.src = image;
 
         let contentElement = document.createElement("p");
@@ -164,13 +164,7 @@ let pokemonRepository = (function () {
     })();
 
     loadDetails(item).then(function () {
-      document.querySelector(".list-button").addEventListener("click", () => {
-        getModal.showModal(
-          item.name,
-          item.imageUrl,
-          `Height: ${item.height} Types: ${item.types[0]}`
-        );
-      });
+      getModal.showModal(item.name, item.imageUrl, `Height: ${item.height}`);
     });
   }
 
@@ -187,7 +181,7 @@ let pokemonRepository = (function () {
   //Removes the "Loading" message once the data from the API has loaded.
   function hideLoadingMessage() {
     let element = document.querySelector(".loading-message");
-    element.remove();
+    element.classList.remove();
   }
 
   return {
@@ -209,9 +203,3 @@ pokemonRepository.loadList().then(function () {
     pokemonRepository.addListItem(pokemon);
   });
 });
-
-// ----TASKS---
-// 1). Make sure all required data appears in some capacity in modal.
-// 2). Fix bug where "types" is showing typeOf instead of actual value.
-// DONE - 3). Delete "modal" button.
-// 4). Fix bug where modal only opens on first object item.
