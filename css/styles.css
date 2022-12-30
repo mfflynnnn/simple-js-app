@@ -11,6 +11,15 @@ body {
   max-width: 25%;
 }
 
+.loading-message {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
 ul {
   padding-left: 0;
 }

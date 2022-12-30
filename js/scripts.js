@@ -174,14 +174,14 @@ let pokemonRepository = (function () {
     let div = document.createElement("div");
     div.innerText = "Loading";
     div.classList.add("loading-message");
-    container.append(div);
+    container.prepend(div);
     return div;
   }
 
   //Removes the "Loading" message once the data from the API has loaded.
   function hideLoadingMessage() {
     let element = document.querySelector(".loading-message");
-    element.classList.remove();
+    element.classList.add("hidden");
   }
 
   return {
