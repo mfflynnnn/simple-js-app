@@ -203,3 +203,31 @@ pokemonRepository.loadList().then(function () {
     pokemonRepository.addListItem(pokemon);
   });
 });
+
+//A div with a link that redirects user to the top of the page. The div
+//only shows on scroll up.
+(function () {
+  let oldScrollY = window.scrollY;
+  //let scrollTop = window.pageYOffset;
+  let dialogueContainer = document.querySelector(".scroll-dialogue");
+  let dialogueLink = document.querySelector(".dialogue-link");
+
+  let titleElement = document.createElement("h5");
+  titleElement.innerText = "Scroll to top";
+
+  let closeButtonElement = document.createElement("button");
+  closeButtonElement.innerText = "Close";
+
+  dialogueLink.append(titleElement);
+
+  window.onscroll = function (e) {
+    if (oldScrollY < window.scrollY) {
+      //hide element on downscroll
+      dialogueContainer.classList.add("hidden");
+    } else {
+      //make element visible on upscroll
+      dialogueContainer.classList.remove("hidden");
+    }
+    oldScrollY = window.scrollY;
+  };
+})();
