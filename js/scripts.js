@@ -86,8 +86,13 @@ let pokemonRepository = (function () {
         return response.json();
       })
       .then(function (details) {
+        console.log(details, "DETAILS");
         hideLoadingMessage();
-        populateModal(details);
+        item.imageUrl = details.sprites.front_default;
+        item.height = details.height;
+        console.log(item.imageUrl);
+        //populateModal(details);
+        //console.log((populateModal, "populateModal"));
       })
       .catch(function (e) {
         hideLoadingMessage();
@@ -111,13 +116,13 @@ let pokemonRepository = (function () {
     element.classList.add("hidden");
   }
 
-  function populateModal(pokemon) {
-    $("#pokeModal").click(function (item) {
-      item.imageUrl = details.sprites.front_default;
-      item.height = details.height;
-      let str = `Height: ${item.height}`;
-    });
-  }
+  // function populateModal() {
+  //   let pokeModal = document.querySelector("#pokeModal");
+  //   pokeModal.click(function (item) {
+  //     let pokeModalLabel = document.querySelector("#pokeModalLabel");
+  //     pokeModalLabel.innerText = `${item.height}`;
+  //   });
+  // }
 
   return {
     getAll: getAll,
