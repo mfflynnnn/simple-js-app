@@ -42,13 +42,15 @@ let pokemonRepository = (function () {
     let button = document.createElement("button");
 
     button.innerText = `${pokemon.name}`;
-    button.classList.add("list-button");
     button.classList.add("btn");
+    button.classList.add("list-button");
+    button.setAttribute("data-toggle", "modal");
+    button.setAttribute("data-target", "#exampleModal");
     listItem.classList.add("group-list-item");
     listItem.appendChild(button);
     pokemonUl.appendChild(listItem);
     button.addEventListener("click", function (event) {
-      showDetails(pokemon);
+      loadDetails(pokemon);
     });
   }
 
@@ -88,8 +90,7 @@ let pokemonRepository = (function () {
       })
       .then(function (details) {
         hideLoadingMessage();
-        item.imageUrl = details.sprites.front_default;
-        item.height = details.height;
+        showDetails(details);
       })
       .catch(function (e) {
         hideLoadingMessage();
@@ -97,78 +98,37 @@ let pokemonRepository = (function () {
       });
   }
 
-  //Logging data from eventListener.
+  //Showing the pokemon details once the modal is clicked open.
   function showDetails(item) {
-    let getModal = (function () {
-      function showModal(title, image, text) {
-        let modalContainer = document.querySelector("#modal-container");
+    let modalBody = $(".modal-body");
+    let modalTitle = $(".modal-title");
 
-        //Clear all existing modal content
-        modalContainer.innerHTML = "";
-        let modal = document.createElement("div");
-        modal.classList.add("modal");
+    modalTitle.empty();
+    modalBody.empty();
 
-        //Add new modal content
-        let closeButtonElement = document.createElement("button");
-        closeButtonElement.classList.add("modal-close");
-        closeButtonElement.innerText = "Close";
+    let nameElement = $("<h1>" + item.name + "</h1>");
+    let imageFrontSrc = item.sprites.front_default;
+    let imageElementFront = `<img src=${imageFrontSrc} />`;
+    let imageBackSrc = item.sprites.back_default;
+    let imageElementBack = `<img src=${imageBackSrc} />`;
+    let heightElement = $("<p>" + "height: " + item.height + "</p>");
+    let weightElement = $("<p>" + "weight: " + item.weight + "</p>");
+    let typesElement = $("<p>" + "types: " + item.types + "</p>");
+    console.log(item.types);
+    let abilitiesElement = $("<p>" + "abilities: " + item.abilities + "</p>");
 
-        let titleElement = document.createElement("h1");
-        titleElement.innerText = title;
-
-        let contentImage = document.createElement("img");
-        contentImage.classList.add("modal-image");
-        contentImage.src = image;
-
-        let contentElement = document.createElement("p");
-        contentElement.innerText = text;
-
-        modal.appendChild(closeButtonElement);
-        modal.appendChild(titleElement);
-        modal.appendChild(contentImage);
-        modal.appendChild(contentElement);
-        modalContainer.appendChild(modal);
-
-        modalContainer.classList.add("is-visible");
-
-        //Exit modal via different escape/close means.
-        function hideModal() {
-          let modalContainer = document.querySelector("#modal-container");
-          modalContainer.classList.remove("is-visible");
-        }
-
-        //Exit modal on click of "Close".
-        closeButtonElement.addEventListener("click", hideModal);
-
-        //Exit modal on escape key.
-        window.addEventListener("keydown", (e) => {
-          let modalContainer = document.querySelector("#modal-container");
-          if (
-            e.key === "Escape" &&
-            modalContainer.classList.contains("is-visible")
-          ) {
-            hideModal();
-          }
-        });
-
-        //Exit modal on click outside of modal.
-        modalContainer.addEventListener("click", (e) => {
-          let target = e.target;
-          if (target === modalContainer) {
-            hideModal();
-          }
-        });
-      }
-
-      return {
-        showModal: showModal,
-      };
-    })();
-
-    loadDetails(item).then(function () {
-      getModal.showModal(item.name, item.imageUrl, `Height: ${item.height}`);
-    });
+    modalTitle.append(nameElement);
+    modalBody.append(imageElementFront);
+    modalBody.append(imageElementBack);
+    modalBody.append(heightElement);
+    modalBody.append(weightElement);
+    modalBody.append(typesElement);
+    modalBody.append(abilitiesElement);
   }
+
+  // loadDetails(item).then(function () {
+  //   showDetails(item.name, item.imageUrl, `Height: ${item.height}`);
+  // });
 
   //Shows a "Loading" message while waiting for data from the API.
   function showLoadingMessage() {
