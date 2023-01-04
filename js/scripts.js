@@ -113,9 +113,14 @@ let pokemonRepository = (function () {
     let imageElementBack = `<img src=${imageBackSrc} />`;
     let heightElement = $("<p>" + "height: " + item.height + "</p>");
     let weightElement = $("<p>" + "weight: " + item.weight + "</p>");
-    let typesElement = $("<p>" + "types: " + item.types + "</p>");
-    console.log(item.types);
-    let abilitiesElement = $("<p>" + "abilities: " + item.abilities + "</p>");
+    let typesValue = (item.types || [])
+      .map((item) => item.type && item.type.name)
+      .join(", ");
+    let typesElement = $("<p>" + "types: " + typesValue + "</p>");
+    let abilitiesValue = (item.abilities || [])
+      .map((item) => item.ability && item.ability.name)
+      .join(", ");
+    let abilitiesElement = $("<p>" + "abilities: " + abilitiesValue + "</p>");
 
     modalTitle.append(nameElement);
     modalBody.append(imageElementFront);
