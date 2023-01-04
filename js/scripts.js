@@ -137,7 +137,7 @@ let pokemonRepository = (function () {
 
   //Shows a "Loading" message while waiting for data from the API.
   function showLoadingMessage() {
-    let container = document.querySelector(".container");
+    let container = document.querySelector(".list-container");
     let div = document.createElement("div");
     div.innerText = "Loading";
     div.classList.add("loading-message");
