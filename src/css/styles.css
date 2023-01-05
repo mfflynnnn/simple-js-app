@@ -26,14 +26,6 @@ li {
   list-style-type: none;
 }
 
-.list-button {
-  padding: 15px;
-  border-radius: 5px;
-  width: 100%;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  border: none;
-}
-
 .modal-img {
   float: left;
   width: 25%;
@@ -45,7 +37,7 @@ li {
   bottom: 0px;
   background: lightgray;
   border: 1px solid black;
-  width: 5%;
+  width: 8%;
   height: 30px;
 }
 

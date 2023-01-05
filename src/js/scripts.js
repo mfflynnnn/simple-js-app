@@ -2,7 +2,7 @@
 let pokemonRepository = (function () {
   //Array of pokemon characters.
   let pokemonList = [];
-  let apiUrl = "https://pokeapi.co/api/v2/pokemon/";
+  let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=90";
 
   //Array of expected keys
   let expectedKeys = ["name", "detailsUrl"];
@@ -37,18 +37,22 @@ let pokemonRepository = (function () {
   //Adding pokemon buttons to the DOM via the ul in index.html.
   //Creating an eventListener to the click of the buttons.
   function addListItem(pokemon) {
-    let pokemonUl = document.querySelector(".pokemon-list");
-    let listItem = document.createElement("li");
+    let pokemonList = document.querySelector(".list-container");
+    let pokeCard = document.createElement("div");
+    let pokeCardBody = document.createElement("div");
     let button = document.createElement("button");
 
-    button.innerText = `${pokemon.name}`;
+    pokeCardBody.innerText = `${pokemon.name}`;
     button.classList.add("btn");
     button.classList.add("list-button");
+    button.classList.add("col-4");
     button.setAttribute("data-toggle", "modal");
     button.setAttribute("data-target", "#exampleModal");
-    listItem.classList.add("group-list-item");
-    listItem.appendChild(button);
-    pokemonUl.appendChild(listItem);
+    pokeCard.classList.add("card");
+    pokeCardBody.classList.add("card-body");
+    pokeCard.appendChild(pokeCardBody);
+    button.appendChild(pokeCard);
+    pokemonList.appendChild(button);
     button.addEventListener("click", function (event) {
       loadDetails(pokemon);
     });
