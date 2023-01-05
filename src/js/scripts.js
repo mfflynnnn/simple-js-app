@@ -45,7 +45,8 @@ let pokemonRepository = (function () {
     pokeCardBody.innerText = `${pokemon.name}`;
     button.classList.add("btn");
     button.classList.add("list-button");
-    button.classList.add("col-4");
+    button.classList.add("col-12");
+    button.classList.add("col-md-4");
     button.setAttribute("data-toggle", "modal");
     button.setAttribute("data-target", "#exampleModal");
     pokeCard.classList.add("card");

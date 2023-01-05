@@ -1,0 +1,47 @@
+body {
+  font-family: Oswald, sans-serif;
+  font-size: larger;
+}
+.page-header__item {
+  max-width: 25%;
+  margin-top: 10px;
+}
+.loading-message {
+  text-align: center;
+}
+.hidden {
+  display: none;
+}
+ul {
+  padding-left: 0;
+}
+li,
+ul {
+  margin: 10px;
+  list-style-type: none;
+}
+.modal-img {
+  float: left;
+  width: 25%;
+}
+.scroll-dialogue {
+  position: fixed;
+  right: -2px;
+  bottom: 0;
+  background: #d3d3d3;
+  border: 1px solid #000;
+  width: 8%;
+  height: 30px;
+}
+.scroll-dialogue h5 {
+  color: #000;
+  margin: 0 auto;
+  padding-top: 2px;
+  font-weight: lighter;
+  text-align: center;
+}
+@media screen and (max-width: 760px) {
+  body {
+    font-size: 75%;
+  }
+}
