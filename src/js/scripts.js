@@ -7,12 +7,6 @@ let pokemonRepository = (function () {
   //Array of expected keys
   let expectedKeys = ["name", "detailsUrl"];
 
-  // //Function that filters data based on passed in criteria.
-  // function getByName(criteria) {
-  //   let result = pokemonList.filter((filterName) => filterName === criteria);
-  //   return result[0] ? result[0] : {};
-  // }
-
   //Function that returns the whole pokemonList array.
   function getAll() {
     return pokemonList;
@@ -54,7 +48,7 @@ let pokemonRepository = (function () {
     pokeCard.appendChild(pokeCardBody);
     button.appendChild(pokeCard);
     pokemonList.appendChild(button);
-    button.addEventListener("click", function (event) {
+    button.addEventListener("click", function () {
       loadDetails(pokemon);
     });
   }
@@ -156,10 +150,35 @@ let pokemonRepository = (function () {
     element.classList.add("hidden");
   }
 
+  //Function that filters data based on passed in criteria.
+
+    //NEED:
+    //STEP 1: Add a listener aka going to need to call it onkeyup
+    //need to get an array of all items before looping over them all
+    //inside of that fn, will need to loop through all the fields
+    //need to hide anything that doesn't contain the searched for text
+    ///////can either toggle css to hide it or use jquery to hide it
+    //needs to filter by the string that's entered, as it's entered
+    let pokemonSearch = document.querySelector("#search");
+    pokemonSearch.addEventListener("keyup", (event) => {
+      pokemon.forEach(function (poke) {
+        if (value !== poke.name) {
+          $(".btn").addClass("hidden");
+        } else {
+          $(".btn").removeClass("hidden");
+        }
+      }
+    );
+  }
+//search for how to search for a substring
+//define value
+//Add css settings for hidden
+
+
+
   return {
     getAll: getAll,
     add: add,
-    //getByName: getByName,
     addListItem: addListItem,
     loadList: loadList,
     loadDetails: loadDetails,
@@ -192,7 +211,7 @@ pokemonRepository.loadList().then(function () {
 
   dialogueLink.append(titleElement);
 
-  window.onscroll = function (e) {
+  window.onscroll = function () {
     if (oldScrollY < window.scrollY) {
       //hide element on downscroll
       dialogueContainer.classList.add("hidden");
