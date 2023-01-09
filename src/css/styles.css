@@ -16,6 +16,12 @@ body {
   display: none;
 }
 
+.form-control {
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 50%;
+}
+
 ul {
   padding-left: 0;
 }

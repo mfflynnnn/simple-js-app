@@ -1,5 +1,5 @@
 body {
-  font-family: Oswald, sans-serif;
+  font-family: "Oswald", sans-serif;
   font-size: larger;
 }
 .page-header__item {
@@ -12,11 +12,16 @@ body {
 .hidden {
   display: none;
 }
+.form-control {
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 50%;
+}
 ul {
   padding-left: 0;
 }
-li,
-ul {
+ul,
+li {
   margin: 10px;
   list-style-type: none;
 }
@@ -28,7 +33,7 @@ ul {
   position: fixed;
   right: -2px;
   bottom: 0;
-  background: #d3d3d3;
+  background: lightgray;
   border: 1px solid #000;
   width: 8%;
   height: 30px;
