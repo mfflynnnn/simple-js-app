@@ -37,6 +37,7 @@ let pokemonRepository = (function () {
     let button = document.createElement("button");
 
     pokeCardBody.innerText = `${pokemon.name}`;
+    button.classList.add(pokemon.name);
     button.classList.add("btn");
     button.classList.add("list-button");
     button.classList.add("col-12");
@@ -150,32 +151,6 @@ let pokemonRepository = (function () {
     element.classList.add("hidden");
   }
 
-  //Function that filters data based on passed in criteria.
-
-    //NEED:
-    //STEP 1: Add a listener aka going to need to call it onkeyup
-    //need to get an array of all items before looping over them all
-    //inside of that fn, will need to loop through all the fields
-    //need to hide anything that doesn't contain the searched for text
-    ///////can either toggle css to hide it or use jquery to hide it
-    //needs to filter by the string that's entered, as it's entered
-    let pokemonSearch = document.querySelector("#search");
-    pokemonSearch.addEventListener("keyup", (event) => {
-      pokemon.forEach(function (poke) {
-        if (value !== poke.name) {
-          $(".btn").addClass("hidden");
-        } else {
-          $(".btn").removeClass("hidden");
-        }
-      }
-    );
-  }
-//search for how to search for a substring
-//define value
-//Add css settings for hidden
-
-
-
   return {
     getAll: getAll,
     add: add,
@@ -192,6 +167,22 @@ let pokemonRepository = (function () {
 pokemonRepository.loadList().then(function () {
   pokemonRepository.getAll().forEach(function (pokemon) {
     pokemonRepository.addListItem(pokemon);
+  });
+});
+
+//EventListener function that filters data based on passed-in criteria.
+$(function () {
+  let pokemonSearch = document.querySelector("#search");
+  pokemonSearch.addEventListener("keyup", () => {
+    let value = pokemonSearch.value;
+    let pokemon = pokemonRepository.getAll();
+    pokemon.forEach(function (poke) {
+      if (poke.name.indexOf(value)) {
+        $(`.${poke.name}`).addClass("hidden");
+      } else {
+        $(`.${poke.name}`).removeClass("hidden");
+      }
+    });
   });
 });
 
